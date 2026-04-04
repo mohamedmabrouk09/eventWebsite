@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigitalGov 0.1 — De la donnée à la décision</title>
+  <meta name="description" content="DigitalGov 0.1 — Première édition du forum sur la gouvernance numérique. 20 & 21 Avril 2026, ENSA Khouribga.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+
+<!-- ═══ INTRO LOADER ═══ -->
+<div id="intro" aria-hidden="true">
+  <div id="introRoad"></div>
+  <div class="intro-vignette"></div>
+  <div class="intro-top-bar"></div>
+  <div class="intro-bot-bar"></div>
+  <div class="intro-center">
+    <div class="ic-eyebrow"><span class="ic-dot"></span>MGSI · ENSA Khouribga · 2026</div>
+    <div class="ic-title" id="introTitle"></div>
+    <div class="ic-tagline" id="introTagline"></div>
+  </div>
+  <div class="intro-flash" id="introFlash"></div>
+</div>
+
+<!-- Noise Overlay -->
+<div class="noise" aria-hidden="true"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor">
+  <div class="cursor-inner"></div>
+  <div class="cursor-text" id="cursorText"></div>
+</div>
+
+<!-- Progress -->
+<div class="progress-line" id="progress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nl-d">Digital</span><span class="nl-g">Gov</span><span class="nl-v"> 0.1</span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#about" class="nav-a">À propos</a>
+    <a href="#programme" class="nav-a">Programme</a>
+    <a href="#speakers" class="nav-a">Conférences</a>
+    <a href="#ateliers" class="nav-a">Ateliers</a>
+    <a href="#equipe" class="nav-a">Équipe</a>
+    <a href="#lieu" class="nav-a">Lieu</a>
+    <a href="#inscription" class="nav-btn">Inscription</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <div class="nt-line"></div>
+    <div class="nt-line"></div>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+  <!-- Floating ambient orbs -->
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag" data-ani="fade-up" data-delay="0">
+      <span class="htag-dot"></span>
+      <span>Première édition · ENSA Khouribga · 2026</span>
+    </div>
+
+    <div class="hero-headline" data-ani="slide-chars" data-delay="200">
+      <div class="hh-line"><span class="hh-word">De la</span></div>
+      <div class="hh-line accent-line"><span class="hh-word italic-serif">donnée</span></div>
+      <div class="hh-line"><span class="hh-word">à la</span> <span class="hh-word italic-serif accent">décision</span></div>
+    </div>
+
+    <p class="hero-sub" data-ani="fade-up" data-delay="600">
+      Gouvernance intelligente &amp; digitalisation responsable
+    </p>
+
+    <div class="hero-meta" data-ani="fade-up" data-delay="750">
+      <div class="hm-item">
+        <span class="hm-label">Date</span>
+        <span class="hm-val">20 &amp; 21 Avril 2026</span>
+      </div>
+      <div class="hm-div"></div>
+      <div class="hm-item">
+        <span class="hm-label">Lieu</span>
+        <span class="hm-val">ENSA Khouribga</span>
+      </div>
+      <div class="hm-div"></div>
+      <div class="hm-item">
+        <span class="hm-label">Édition</span>
+        <span class="hm-val">Première</span>
+      </div>
+    </div>
+
+    <div class="hero-ctas" data-ani="fade-up" data-delay="900">
+      <a href="#programme" class="btn-primary">
+        <span>Voir le programme</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#inscription" class="btn-ghost">Réserver ma place</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll" data-ani="fade-up" data-delay="1200">
+    <div class="scroll-wheel">
+      <div class="sw-inner"></div>
+    </div>
+    <span>Défiler pour explorer</span>
+  </div>
+
+  <!-- Floating stat badges -->
+  <div class="hero-float-1" data-ani="fade-up" data-delay="1000">
+    <span class="hf-n">2</span>
+    <span class="hf-l">jours d'échanges</span>
+  </div>
+  <div class="hero-float-2" data-ani="fade-up" data-delay="1100">
+    <span class="hf-n">10+</span>
+    <span class="hf-l">intervenants</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Gouvernance SI</span><span class="tx">✦</span>
+    <span>Données &amp; Décision</span><span class="tx">✦</span>
+    <span>DigitalGov 0.1</span><span class="tx">✦</span>
+    <span>MGSI · ENSAKh</span><span class="tx">✦</span>
+    <span>Transformation Digitale</span><span class="tx">✦</span>
+    <span>Intelligence Numérique</span><span class="tx">✦</span>
+    <span>Gouvernance SI</span><span class="tx">✦</span>
+    <span>Données &amp; Décision</span><span class="tx">✦</span>
+    <span>DigitalGov 0.1</span><span class="tx">✦</span>
+    <span>MGSI · ENSAKh</span><span class="tx">✦</span>
+    <span>Transformation Digitale</span><span class="tx">✦</span>
+    <span>Intelligence Numérique</span><span class="tx">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about s-pad" id="about">
+  <div class="container">
+    <div class="about-top">
+      <div class="about-left">
+        <div class="about-badge" data-ani="fade-up">
+          <span class="about-badge-dot"></span>Première édition · MGSI · 2026
+        </div>
+        <h2 class="section-h" data-ani="fade-up" data-delay="100">
+          Un espace inédit<br>pour repenser<br><em>la donnée</em>
+        </h2>
+        <div class="about-left-line" aria-hidden="true"></div>
+      </div>
+      <div class="about-right" data-ani="fade-up" data-delay="200">
+        <p class="about-body">Pour sa première édition, <strong>DigitalGov 0.1</strong> est le phare de l'ENSA Khouribga, porté par la filière MGSI. Plus qu'un rendez-vous académique, c'est une initiative ambitieuse qui réunit acteurs du numérique, de la stratégie et de la gouvernance pour deux journées d'échanges et de partage.</p>
+        <blockquote class="about-quote">
+          Comment tirer le meilleur de la donnée sans compromettre la confiance, l'éthique et la transparence ?
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- Feature bento -->
+    <div class="feature-bento">
+      <div class="fb-card fb-large" data-ani="scale-in" data-delay="0">
+        <div class="fbc-header">
+          <div class="fbc-num">01</div>
+          <div class="fbc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3M8 22h8"/></svg>
+          </div>
+        </div>
+        <h3 class="fbc-title">Conférences &amp; Panels</h3>
+        <p class="fbc-desc">Des experts du secteur partagent leurs visions sur la gouvernance intelligente des systèmes d'information.</p>
+        <div class="fbc-tag">Gouvernance SI</div>
+      </div>
+      <div class="fb-card" data-ani="scale-in" data-delay="80">
+        <div class="fbc-header">
+          <div class="fbc-num">02</div>
+          <div class="fbc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+        </div>
+        <h3 class="fbc-title">Ateliers Pratiques</h3>
+        <p class="fbc-desc">ERP, IA, Automatisation — des sessions immersives pour apprendre en faisant.</p>
+        <div class="fbc-tag">Hands-on</div>
+      </div>
+      <div class="fb-card" data-ani="scale-in" data-delay="160">
+        <div class="fbc-header">
+          <div class="fbc-num">03</div>
+          <div class="fbc-icon fbc-icon-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+        </div>
+        <h3 class="fbc-title">Python Battle</h3>
+        <p class="fbc-desc">Un hackathon pour les étudiants préparatoires — défis réels face à un jury de professionnels.</p>
+        <div class="fbc-tag fbc-tag-gold">Compétition</div>
+      </div>
+      <div class="fb-card" data-ani="scale-in" data-delay="240">
+        <div class="fbc-header">
+          <div class="fbc-num">04</div>
+          <div class="fbc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+        </div>
+        <h3 class="fbc-title">Table Ronde</h3>
+        <p class="fbc-desc">Un dialogue ouvert entre décideurs IT, business analysts et managers de la transformation digitale.</p>
+        <div class="fbc-tag">Networking</div>
+      </div>
+      <div class="fb-card fb-wide" data-ani="scale-in" data-delay="320">
+        <div class="fbc-header">
+          <div class="fbc-num">05</div>
+          <div class="fbc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </div>
+        </div>
+        <h3 class="fbc-title">Forum &amp; Sharing Experience</h3>
+        <p class="fbc-desc">Des professionnels partagent leur parcours — de l'académique au monde réel de la gouvernance SI.</p>
+        <div class="fbc-tag">Carrière</div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip" data-ani="fade-up" data-delay="100">
+      <div class="ss-item">
+        <div class="ss-n" data-count="2">0</div>
+        <div class="ss-l">Jours d'échanges</div>
+      </div>
+      <div class="ss-sep"></div>
+      <div class="ss-item">
+        <div class="ss-n" data-count="10">0</div>
+        <div class="ss-l">Intervenants experts</div>
+      </div>
+      <div class="ss-sep"></div>
+      <div class="ss-item">
+        <div class="ss-n" data-count="8">0</div>
+        <div class="ss-l">Ateliers pratiques</div>
+      </div>
+      <div class="ss-sep"></div>
+      <div class="ss-item">
+        <div class="ss-n ss-text">1ère</div>
+        <div class="ss-l">Édition MGSI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section class="programme s-pad s-dark" id="programme">
+  <div class="container">
+    <div class="section-split">
+      <div class="ss-meta">
+        <p class="section-label light" data-ani="fade-up">Programme officiel</p>
+        <h2 class="section-h light" data-ani="fade-up" data-delay="100">Deux jours<br><em>d'échanges</em></h2>
+        <div class="prog-switcher" data-ani="fade-up" data-delay="200">
+          <button class="ps-btn ps-active" data-day="1">
+            <span class="psb-n">01</span>
+            <span class="psb-info">
+              <span class="psb-title">Jour 1</span>
+              <span class="psb-date">20 Avril</span>
+            </span>
+          </button>
+          <button class="ps-btn" data-day="2">
+            <span class="psb-n">02</span>
+            <span class="psb-info">
+              <span class="psb-title">Jour 2</span>
+              <span class="psb-date">21 Avril</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="ss-content">
+        <div class="prog-timeline" id="progTimeline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section class="speakers s-pad" id="speakers">
+  <div class="container">
+    <div class="section-split split-alt">
+      <div class="ss-meta">
+        <p class="section-label" data-ani="fade-up">Conférences phares</p>
+        <h2 class="section-h" data-ani="fade-up" data-delay="100">Nos<br><em>intervenants</em></h2>
+        <p class="section-sub" data-ani="fade-up" data-delay="200">Experts, chercheurs et professionnels qui partagent leur vision de la gouvernance numérique.</p>
+      </div>
+      <div class="ss-content">
+        <div class="spk-grid" id="spkGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL QUOTE -->
+<section class="quote-section" aria-hidden="true">
+  <div class="qs-inner">
+    <div class="qs-track" id="qsTrack">
+      <span>Données &amp; Décision</span>
+      <span class="qs-sep">·</span>
+      <span>Gouvernance Intelligente</span>
+      <span class="qs-sep">·</span>
+      <span>Digitalisation Responsable</span>
+      <span class="qs-sep">·</span>
+      <span>MGSI</span>
+      <span class="qs-sep">·</span>
+      <span>Données &amp; Décision</span>
+      <span class="qs-sep">·</span>
+      <span>Gouvernance Intelligente</span>
+      <span class="qs-sep">·</span>
+      <span>Digitalisation Responsable</span>
+      <span class="qs-sep">·</span>
+      <span>MGSI</span>
+      <span class="qs-sep">·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ATELIERS -->
+<section class="ateliers s-pad s-dark" id="ateliers">
+  <div class="container">
+    <div class="section-split">
+      <div class="ss-meta">
+        <p class="section-label light" data-ani="fade-up">Ateliers pratiques</p>
+        <h2 class="section-h light" data-ani="fade-up" data-delay="100">Apprendre<br><em>en faisant</em></h2>
+      </div>
+      <div class="ss-content">
+        <div class="atelier-grid" id="atelierGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE RONDE -->
+<section class="roundtable s-pad" id="roundtable">
+  <div class="container">
+    <div class="section-split split-alt">
+      <div class="ss-meta">
+        <p class="section-label" data-ani="fade-up">Table ronde &amp; Sharing</p>
+        <h2 class="section-h" data-ani="fade-up" data-delay="100">Les voix<br><em>de l'industrie</em></h2>
+      </div>
+      <div class="ss-content">
+        <div class="rt-panels" id="rtPanels"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITION -->
+<section class="competition s-dark" id="competition">
+  <div class="comp-canvas-wrap">
+    <canvas id="compCanvas" aria-hidden="true"></canvas>
+  </div>
+  <div class="container comp-inner">
+    <div class="comp-content" data-ani="fade-up">
+      <p class="section-label light">Compétition</p>
+      <h2 class="section-h light cmp-h">Python<br><em>Battle</em></h2>
+      <p class="comp-sub">Défi pour les étudiants des deux années préparatoires. Mettez en pratique la programmation sur des cas réels devant un jury de professionnels.</p>
+      <div class="comp-timeline" id="compTimeline"></div>
+      <a href="#inscription" class="btn-primary btn-lg">Rejoindre la compétition →</a>
+    </div>
+    <div class="comp-badge-wrap" data-ani="scale-in" data-delay="300">
+      <div class="comp-ring-outer" aria-hidden="true">
+        <div class="comp-ring-mid"></div>
+        <div class="comp-ring-inner"></div>
+        <div class="comp-core">
+          <span class="cc-title">Python</span>
+          <span class="cc-sub">Battle 2026</span>
+          <span class="cc-tag">DigitalGov 0.1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team s-pad" id="equipe">
+  <div class="container">
+    <div class="section-split">
+      <div class="ss-meta">
+        <p class="section-label" data-ani="fade-up">Bureau DigitalGov</p>
+        <h2 class="section-h" data-ani="fade-up" data-delay="100">L'équipe qui<br><em>fait l'événement</em></h2>
+      </div>
+      <div class="ss-content">
+        <div class="team-grid" id="teamGrid"></div>
+        <div class="supervisors" data-ani="fade-up">
+          <h3 class="sup-title">Encadrement académique</h3>
+          <div class="sup-cards">
+            <div class="sup-card">
+              <div class="sup-ava">KH</div>
+              <div class="sup-info">
+                <p class="sup-name">Mr. KHALFI Hamza</p>
+                <p class="sup-role">Professeur · Responsable MGSI</p>
+                <p class="sup-note">Encadrement pédagogique et orientation stratégique de DigitalGov.</p>
+              </div>
+            </div>
+            <div class="sup-card">
+              <div class="sup-ava">AA</div>
+              <div class="sup-info">
+                <p class="sup-name">Mr. AGHRICHE Ahmed</p>
+                <p class="sup-role">Professeur · MGSI</p>
+                <p class="sup-note">Coordination académique et suivi des interventions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners s-pad s-dark" id="partners">
+  <div class="container">
+    <p class="section-label light" data-ani="fade-up">Partenaires &amp; Sponsors</p>
+    <h2 class="section-h light" data-ani="fade-up" data-delay="100">Ils nous<br><em>soutiennent</em></h2>
+    <div class="partner-logos">
+      <div class="pl" data-ani="scale-in" data-delay="0">Ministère de la Transition Numérique</div>
+      <div class="pl" data-ani="scale-in" data-delay="60">ENSA Khouribga</div>
+      <div class="pl" data-ani="scale-in" data-delay="120">ResearchX Club</div>
+      <div class="pl" data-ani="scale-in" data-delay="180">AUSIM</div>
+    </div>
+    <div class="partner-cta" data-ani="fade-up" data-delay="300">
+      <p>Vous souhaitez soutenir DigitalGov 0.1 ?</p>
+      <a href="mailto:digitalgovdays@gmail.com" class="btn-ghost-light">Devenir partenaire →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location s-pad" id="lieu">
+  <div class="container">
+    <div class="loc-head">
+      <div>
+        <p class="section-label" data-ani="fade-up">Localisation</p>
+        <h2 class="section-h" data-ani="fade-up" data-delay="100">Où nous<br><em>trouver ?</em></h2>
+      </div>
+      <p class="section-sub" data-ani="fade-up" data-delay="200">L'événement se tient au cœur du campus de l'ENSA Khouribga, facilement accessible depuis toutes les villes du Maroc.</p>
+    </div>
+    <div class="loc-layout">
+      <div class="loc-map" data-ani="scale-in" data-delay="0">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.082048462609!2d-6.9074583!3d32.8849726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda68f60b41fdf3b%3A0x5c21f9a49c8d7c7e!2sENSA%20Khouribga!5e0!3m2!1sfr!2sma!4v1680000000000!5m2!1sfr!2sma"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="ENSA Khouribga sur Google Maps">
+        </iframe>
+        <div class="loc-map-overlay"></div>
+      </div>
+      <div class="loc-info" data-ani="fade-up" data-delay="150">
+        <div class="li-venue">
+          <div class="li-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h3 class="li-title">ENSA Khouribga</h3>
+            <p class="li-caption">École Nationale des Sciences Appliquées</p>
+          </div>
+        </div>
+        <div class="li-addr">
+          <p>Boulevard Béni Amir, BP 77</p>
+          <p>Khouribga 25000, Maroc</p>
+        </div>
+        <div class="li-cards">
+          <div class="li-card">
+            <span class="lic-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+            <div>
+              <span class="lic-label">Dates</span>
+              <span class="lic-val">20 &amp; 21 Avril 2026</span>
+            </div>
+          </div>
+          <div class="li-card">
+            <span class="lic-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <div>
+              <span class="lic-label">Début</span>
+              <span class="lic-val">08:30 chaque jour</span>
+            </div>
+          </div>
+          <div class="li-card">
+            <span class="lic-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 10.93a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.9 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></span>
+            <div>
+              <span class="lic-label">Contact</span>
+              <span class="lic-val">+212 670 551 092</span>
+            </div>
+          </div>
+          <div class="li-card">
+            <span class="lic-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+            <div>
+              <span class="lic-label">Email</span>
+              <span class="lic-val">digitalgovdays@gmail.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="li-how">
+          <h4 class="lih-title">Comment s'y rendre ?</h4>
+          <ul class="lih-list">
+            <li>
+              <span class="lih-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
+              <span>Accessible depuis Casablanca, Béni Mellal, Marrakech</span>
+            </li>
+            <li>
+              <span class="lih-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 010 6H9"/></svg></span>
+              <span>Parking disponible sur le campus</span>
+            </li>
+            <li>
+              <span class="lih-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span>Centre-ville de Khouribga, à 10 min en taxi</span>
+            </li>
+          </ul>
+        </div>
+        <a href="https://maps.google.com/?q=ENSA+Khouribga" target="_blank" class="btn-primary loc-btn">
+          <span>Ouvrir dans Google Maps</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="registration s-pad" id="inscription">
+  <div class="container">
+    <div class="reg-layout">
+      <div class="reg-left" data-ani="fade-up">
+        <p class="section-label">Inscription</p>
+        <h2 class="section-h">Réservez<br><em>votre place</em></h2>
+        <p class="reg-desc">Ateliers, compétition ou les deux — inscrivez-vous pour ne rien manquer de DigitalGov 0.1.</p>
+        <ul class="reg-contact">
+          <li><span class="rc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span> <a href="mailto:digitalgovdays@gmail.com">digitalgovdays@gmail.com</a></li>
+          <li><span class="rc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 10.93a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.9 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></span> +212 670 551 092</li>
+          <li><span class="rc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 10.93a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.9 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></span> +212 666 584 791</li>
+          <li><span class="rc-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span> ENSA Khouribga, Bd Béni Amir, BP 77</li>
+        </ul>
+      </div>
+      <div class="reg-right" data-ani="fade-up" data-delay="200">
+        <form class="reg-form" id="regForm">
+          <div class="rf-row">
+            <div class="rf-g"><label>Prénom</label><input type="text" name="prenom" placeholder="Votre prénom" required></div>
+            <div class="rf-g"><label>Nom</label><input type="text" name="nom" placeholder="Votre nom" required></div>
+          </div>
+          <div class="rf-g"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" required></div>
+          <div class="rf-g"><label>Téléphone</label><input type="tel" name="telephone" placeholder="+212 6XX XXX XXX"></div>
+          <div class="rf-g"><label>Établissement / Organisation</label><input type="text" name="etablissement" placeholder="ENSA Khouribga, entreprise…"></div>
+          <div class="rf-row">
+            <div class="rf-g"><label>Ville</label><input type="text" name="ville" placeholder="Khouribga…"></div>
+            <div class="rf-g">
+              <label>Profil</label>
+              <select name="profil"><option value="">— Choisir —</option><option>Étudiant</option><option>Professionnel</option><option>Académique</option></select>
+            </div>
+          </div>
+          <div class="rf-g">
+            <label>Je m'inscris à</label>
+            <div class="rf-checks">
+              <label class="rfc"><input type="checkbox" name="participation" value="Ateliers"><span class="rfc-b"></span>Ateliers</label>
+              <label class="rfc"><input type="checkbox" name="participation" value="Compétition"><span class="rfc-b"></span>Compétition</label>
+              <label class="rfc"><input type="checkbox" name="participation" value="Sponsoring"><span class="rfc-b"></span>Sponsoring</label>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">Réserver ma place</button>
+          <p class="rf-note">En soumettant, vous confirmez votre intérêt. Détails envoyés par email.</p>
+          <div class="rf-success" id="rfSuccess">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><circle cx="12" cy="12" r="10" stroke="#34d399" stroke-width="1.5"/><path d="M7.5 12l3 3 6-6" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Inscription enregistrée ! Vous recevrez une confirmation.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq s-pad s-dark" id="faq">
+  <div class="container faq-container">
+    <p class="section-label light" data-ani="fade-up">FAQ</p>
+    <h2 class="section-h light" data-ani="fade-up" data-delay="100">Questions<br><em>fréquentes</em></h2>
+    <div class="faq-list">
+      <div class="faq-i" data-ani="fade-up"><button class="faq-q">Comment m'inscrire à DigitalGov 0.1 ?<span>+</span></button><div class="faq-a">Remplissez le formulaire d'inscription ci-dessus. Vous recevrez une confirmation par email avec tous les détails de participation.</div></div>
+      <div class="faq-i" data-ani="fade-up" data-delay="60"><button class="faq-q">L'événement est-il gratuit ?<span>+</span></button><div class="faq-a">Oui, l'événement est entièrement gratuit et ouvert à tous — étudiants, professionnels et académiques.</div></div>
+      <div class="faq-i" data-ani="fade-up" data-delay="120"><button class="faq-q">Puis-je participer à la Python Battle ?<span>+</span></button><div class="faq-a">La Python Battle est réservée aux étudiants des deux années préparatoires. Les ateliers sont ouverts à tous.</div></div>
+      <div class="faq-i" data-ani="fade-up" data-delay="180"><button class="faq-q">Des attestations seront-elles délivrées ?<span>+</span></button><div class="faq-a">Oui, des attestations officielles de participation seront remises à tous les participants.</div></div>
+      <div class="faq-i" data-ani="fade-up" data-delay="240"><button class="faq-q">Y a-t-il un dress code ?<span>+</span></button><div class="faq-a">Une tenue correcte et professionnelle est recommandée pour cet événement académique et professionnel.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+  <a href="#" class="footer-logo">
+    <span>Digital</span><span class="fl-g">Gov</span> <sup>0.1</sup>
+  </a>
+
+  <p class="footer-tagline">
+    Gouvernance intelligente<br>&amp; digitalisation responsable
+  </p>
+
+  <p class="footer-made">
+    Made with <span class="heart">❤</span> by 
+    <span class="author">Mabrouk Mohamed</span>
+  </p>
+
+  <a href="https://www.linkedin.com/in/mohamed-mabrouk-920682337/" 
+     target="_blank" 
+     class="footer-li">
+    LinkedIn ↗
+  </a>
+</div>
+    <div class="footer-cols">
+      <div class="fc">
+        <h4>Navigation</h4>
+        <a href="#about">À propos</a>
+        <a href="#programme">Programme</a>
+        <a href="#speakers">Intervenants</a>
+        <a href="#ateliers">Ateliers</a>
+        <a href="#equipe">Équipe</a>
+        <a href="#inscription">Inscription</a>
+      </div>
+      <div class="fc">
+        <h4>Contact</h4>
+        <p>ENSA Khouribga<br>Bd Béni Amir, BP 77<br>Khouribga — Maroc</p>
+        <a href="mailto:digitalgovdays@gmail.com">digitalgovdays@gmail.com</a>
+        <p>+212 670 551 092</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 DigitalGov 0.1 · ENSA Khouribga · Organisé par les étudiants MGSI — Management &amp; Gouvernance des Systèmes d'Information</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
