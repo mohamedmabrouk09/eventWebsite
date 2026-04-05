@@ -321,9 +321,13 @@ class HyperspeedApp {
     const W = Math.max(1, container.offsetWidth);
     const H = Math.max(1, container.offsetHeight);
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false });
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: !!opts.antialias,
+      alpha: false,
+      powerPreference: opts.powerPreference || 'high-performance'
+    });
     this.renderer.setSize(W, H, false);
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, opts.maxPixelRatio || 2));
     container.appendChild(this.renderer.domElement);
 
     this.camera = new THREE.PerspectiveCamera(opts.fov, W / H, 0.1, 10000);
@@ -344,9 +348,9 @@ class HyperspeedApp {
     this.composer = new EffectComposer(this.renderer);
     this.composer.addPass(new RenderPass(this.scene, this.camera));
     const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.5, 0.4, 0.1);
-    bloom.strength  = 2.5;
-    bloom.radius    = 0.6;
-    bloom.threshold = 0.02;
+    bloom.strength  = opts.bloomStrength ?? 2.5;
+    bloom.radius    = opts.bloomRadius ?? 0.6;
+    bloom.threshold = opts.bloomThreshold ?? 0.02;
     this.composer.addPass(bloom);
 
     this.clock = new THREE.Clock();
@@ -375,6 +379,7 @@ class HyperspeedApp {
     const W = this.container.offsetWidth, H = this.container.offsetHeight;
     if (!W || !H) return;
     this.renderer.setSize(W, H, false);
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.opts.maxPixelRatio || 2));
     this.composer.setSize(W, H);
     this.camera.aspect = W / H;
     this.camera.updateProjectionMatrix();
@@ -439,6 +444,8 @@ export function createHyperspeed(container, overrides = {}) {
     distortion: turbDistortion,
     length: 400, roadWidth: 10, islandWidth: 2, lanesPerRoad: 3,
     fov: 90, fovSpeedUp: 150, speedUp: 2, carLightsFade: 0.4,
+    maxPixelRatio: 2, antialias: false, powerPreference: 'high-performance',
+    bloomStrength: 2.5, bloomRadius: 0.6, bloomThreshold: 0.02,
     totalSideLightSticks: 50, lightPairsPerRoadWay: 50,
     shoulderLinesWidthPercentage: 0.05, brokenLinesWidthPercentage: 0.1, brokenLinesLengthPercentage: 0.5,
     lightStickWidth: [0.12, 0.5], lightStickHeight: [1.3, 1.7],

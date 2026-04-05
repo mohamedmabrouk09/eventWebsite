@@ -159,13 +159,21 @@ addCursorHover('.btn-submit', 'Envoyer');
 (function heroFluid() {
   const canvas = document.getElementById('heroCanvas');
   const ctx = canvas.getContext('2d');
-  let W, H, particles = [], raf;
-  const COUNT = 180;
+  let W, H, particles = [], raf, dpr = 1;
+  const isTouch = window.matchMedia('(hover:none) and (pointer:coarse)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const COUNT = reduceMotion ? 60 : (isTouch ? 90 : 180);
+  const CONNECT = isTouch ? 70 : 90;
+  const AURA = isTouch ? 90 : 120;
   let mouse = {x: -9999, y: -9999};
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, isTouch ? 1.25 : 2);
+    canvas.width = Math.max(1, Math.floor(W * dpr));
+    canvas.height = Math.max(1, Math.floor(H * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     initParticles();
   }
 
@@ -234,7 +242,7 @@ addCursorHover('.btn-submit', 'Envoyer');
   }
 
   function drawConnections() {
-    const threshold = 90;
+    const threshold = CONNECT;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -246,7 +254,7 @@ addCursorHover('.btn-submit', 'Envoyer');
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.strokeStyle = `rgba(100,150,255,${alpha})`;
-          ctx.lineWidth = 0.8;
+          ctx.lineWidth = isTouch ? 0.6 : 0.8;
           ctx.stroke();
         }
       }
@@ -269,11 +277,11 @@ addCursorHover('.btn-submit', 'Envoyer');
   // Ambient glow around mouse
   function drawMouseAura() {
     if (mouse.x < 0 || mouse.x > W) return;
-    const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 120);
+    const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, AURA);
     grad.addColorStop(0, 'rgba(139,92,246,0.08)');
     grad.addColorStop(1, 'rgba(59,130,246,0)');
     ctx.beginPath();
-    ctx.arc(mouse.x, mouse.y, 120, 0, Math.PI * 2);
+    ctx.arc(mouse.x, mouse.y, AURA, 0, Math.PI * 2);
     ctx.fillStyle = grad;
     ctx.fill();
   }
@@ -301,18 +309,18 @@ addCursorHover('.btn-submit', 'Envoyer');
   }
 
   resize();
+  function setPointer(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = clientX - rect.left;
+    mouse.y = clientY - rect.top;
+  }
+
   window.addEventListener('resize', resize);
-  canvas.addEventListener('mousemove', e => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-  document.addEventListener('mousemove', e => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
+  canvas.addEventListener('pointermove', e => setPointer(e.clientX, e.clientY), { passive: true });
+  canvas.addEventListener('pointerdown', e => setPointer(e.clientX, e.clientY), { passive: true });
+  canvas.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('pointermove', e => setPointer(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; }, { passive: true });
 
   draw();
 })();
@@ -749,12 +757,33 @@ document.querySelectorAll('.spk-grid, .atelier-grid, .rt-panels, .team-grid, .fe
     });
   }
 
-  // ── Touch / mobile: skip Three.js, simple text intro ─────────────
+  // ── Touch / mobile: run a lighter hyperspeed preset ─────────────
   const isTouch = window.matchMedia('(hover:none) and (pointer:coarse)').matches;
-  if (isTouch || !roadEl) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobilePreset = {
+    length: 260,
+    roadWidth: 8,
+    islandWidth: 1.5,
+    lanesPerRoad: 2,
+    totalSideLightSticks: 30,
+    lightPairsPerRoadWay: 30,
+    movingAwaySpeed: [40, 60],
+    movingCloserSpeed: [-80, -120],
+    carLightsLength: [260 * 0.05, 260 * 0.12],
+    maxPixelRatio: 1.2,
+    bloomStrength: 1.6,
+    bloomRadius: 0.35,
+    bloomThreshold: 0.2,
+    fov: 95,
+    fovSpeedUp: 130,
+    speedUp: 1.4
+  };
+  const introPreset = (isTouch || reduceMotion) ? mobilePreset : {};
+
+  if (!roadEl) {
     if (titleEl) titleEl.textContent = 'DigitalGov';
     if (tagEl)   tagEl.textContent   = '0.1 — De la donnée à la décision';
-    await new Promise(res => setTimeout(res, 1600));
+    await new Promise(res => setTimeout(res, 1200));
     finishIntro(null);
     return;
   }
@@ -762,7 +791,7 @@ document.querySelectorAll('.spk-grid, .atelier-grid, .rt-panels, .team-grid, .fe
   // ── Desktop: full Three.js hyperspeed ────────────────────────────
   let hs = null;
   try {
-    hs = createHyperspeed(roadEl);
+    hs = createHyperspeed(roadEl, introPreset);
   } catch (e) {
     finishIntro(null);
     return;

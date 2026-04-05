@@ -1034,7 +1034,7 @@ body.hovering-text .cursor-text { opacity: 1; }
 }
 #introRoad canvas { width: 100% !important; height: 100% !important; }
 @media (hover: none) and (pointer: coarse) {
-  #introRoad { display: none; }
+  #introRoad { opacity: 0.9; }
 }
 
 .intro-vignette {
