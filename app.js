@@ -888,7 +888,7 @@ function renderRoundtable() {
           .map(
             (p) => `
           <li class="rtp-person${p.mod ? " rtp-mod" : ""}">
-            ${p.img ? `<span class="rtp-ava"><img src="${p.img}" alt="${p.name}"></span>` : ""}
+            ${p.img ? `<span class="rtp-ava"><img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async" width="38" height="38"></span>` : ""}
             <div class="rtp-text">
               <span class="rtp-name">${p.name}</span>
               <span class="rtp-role">${p.role}</span>
@@ -940,7 +940,7 @@ function renderTeam() {
     (m) => `
     <div class="tm-card">
       <div class="tm-ava">
-        ${m.img ? `<img src="${m.img}" alt="${m.name}">` : m.init}
+        ${m.img ? `<img src="${m.img}" alt="${m.name}" loading="lazy" decoding="async" width="52" height="52">` : m.init}
       </div>
       <div class="tm-name">${m.name}</div>
       <div class="tm-cell">${m.cell}</div>
