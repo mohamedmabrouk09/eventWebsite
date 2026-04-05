@@ -269,97 +269,124 @@ const ROUNDTABLE = [
 ];
 
 const TEAM = [
-  { init: "SH", name: "SENNAL Hajar", cell: "Présidence", role: "Présidente" },
+  {
+    init: "SH",
+    name: "SENNAL Hajar",
+    cell: "Présidence",
+    role: "Présidente",
+    img: "images/hajar.png",
+  },
   {
     init: "IF",
     name: "ICHMAWIN Fahd",
     cell: "Présidence",
     role: "Vice-président",
+    img: "images/fahd.png",
   },
   {
     init: "BY",
     name: "BENNIS Yasmine",
     cell: "Cellule Technique",
     role: "Responsable",
+    img: "images/yassmine.png",
   },
   {
     init: "ED",
     name: "EL ALLAM Douae",
     cell: "Cellule Technique",
     role: "Vice-responsable",
+    img: "images/douaa.png",
   },
   {
     init: "GH",
     name: "EL GUEROUA Haytam",
     cell: "Cellule Média",
     role: "Responsable",
+    img: "images/haytam.png",
   },
   {
     init: "SZ",
     name: "SAMHAOUI Ziad",
     cell: "Cellule Média",
     role: "Vice-responsable",
+    img: "images/zyad.png",
   },
   {
     init: "CF",
     name: "CHOUJAA Fatima Zahra",
     cell: "Compétition",
     role: "Responsable",
+    img: "images/fatima.png",
   },
   {
     init: "AI",
     name: "ATMANI Imad",
     cell: "Compétition",
     role: "Vice-responsable",
+    img: "images/imad.png",
   },
   {
     init: "AZ",
     name: "AZAROUAL Zineb",
     cell: "Logistique",
     role: "Responsable",
+    img: "images/zineb.png",
   },
   {
     init: "ZA",
     name: "ZIDOUH Abdelkrim",
     cell: "Logistique",
     role: "Vice-responsable",
+    img: "images/abdlkrim.png",
   },
-  { init: "AY", name: "ATTI Youssra", cell: "Sponsoring", role: "Responsable" },
+  {
+    init: "AY",
+    name: "ATTI Youssra",
+    cell: "Sponsoring",
+    role: "Responsable",
+    img: "images/youssra.png",
+  },
   {
     init: "SN",
     name: "SADIKI Nouhaila",
     cell: "Sponsoring",
     role: "Vice-responsable",
+    img: "images/nouhaila.png",
   },
   {
     init: "HI",
     name: "HAFIDI Ihsane",
     cell: "Conférences & Ateliers",
     role: "Responsable",
+    img: "images/ihssane.png",
   },
   {
     init: "RS",
     name: "RAHALI Sara",
     cell: "Conférences & Ateliers",
     role: "Vice-responsable",
+    img: "images/sara.png",
   },
   {
     init: "NS",
     name: "NAFI Samira",
     cell: "Divertissement",
     role: "Responsable",
+    img: "images/samira.png",
   },
   {
     init: "AA",
     name: "AIT ABDELLAH Ayoub",
     cell: "Divertissement",
     role: "Vice-responsable",
+    img: "images/ayoub.png",
   },
   {
     init: "CM",
     name: "CHERIF Madani",
     cell: "Trésorerie",
     role: "Responsable",
+    img: "images/cherif.png",
   },
 ];
 
@@ -861,8 +888,11 @@ function renderRoundtable() {
           .map(
             (p) => `
           <li class="rtp-person${p.mod ? " rtp-mod" : ""}">
-            <span class="rtp-name">${p.name}</span>
-            <span class="rtp-role">${p.role}</span>
+            ${p.img ? `<span class="rtp-ava"><img src="${p.img}" alt="${p.name}"></span>` : ""}
+            <div class="rtp-text">
+              <span class="rtp-name">${p.name}</span>
+              <span class="rtp-role">${p.role}</span>
+            </div>
           </li>
         `,
           )
@@ -909,7 +939,9 @@ function renderTeam() {
   grid.innerHTML = TEAM.map(
     (m) => `
     <div class="tm-card">
-      <div class="tm-ava">${m.init}</div>
+      <div class="tm-ava">
+        ${m.img ? `<img src="${m.img}" alt="${m.name}">` : m.init}
+      </div>
       <div class="tm-name">${m.name}</div>
       <div class="tm-cell">${m.cell}</div>
       <div class="tm-role">${m.role}</div>
