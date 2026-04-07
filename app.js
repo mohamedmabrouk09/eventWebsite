@@ -2,11 +2,20 @@
    DigitalGov 0.1 — app.js (ES Module)
    Intro · Magnetic particles · Cinematic animations · All sections
 =============================================================== */
-import { createHyperspeed } from "./hyperspeed.js";
 
 // ================================================
 // DATA
 // ================================================
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+});
+window.addEventListener("beforeunload", () => {
+  window.scrollTo(0, 0);
+});
+
 const DAYS = {
   1: [
     { t: "08:30", e: "Accueil des invités", w: "", hl: false },
@@ -109,6 +118,7 @@ const SPEAKERS = [
     role: "Intervenante",
     topic:
       "« Gouvernance des SI — Pourquoi les meilleurs systèmes échouent-ils sans elle ? »",
+    img: "images/partenaires/partenaires/Houda mezouar.jpeg",
   },
   {
     init: "DJ",
@@ -116,12 +126,14 @@ const SPEAKERS = [
     role: "Intervenant",
     topic:
       "« Sécurité des SI — Enjeux et bonnes pratiques pour une gouvernance robuste »",
+    img: "images/partenaires/partenaires/Jeremy dubourg.jpeg",
   },
   {
     init: "OM",
     name: "Mr. OUBAL Mohamed",
     role: "Intervenant",
     topic: "« Entrepreneuriat & Digitalisation — Du technique au stratégique »",
+    img: "images/partenaires/partenaires/Oubal.png",
   },
   {
     init: "OA",
@@ -129,6 +141,7 @@ const SPEAKERS = [
     role: "Intervenant",
     topic:
       "« Entrepreneuriat & Management de projet SI — Naviguer dans la complexité »",
+    img: "images/partenaires/partenaires/ounmazir.png",
   },
   {
     init: "MO",
@@ -136,12 +149,14 @@ const SPEAKERS = [
     role: "Animatrice Workshop",
     topic:
       "« Formation ERP — Optimiser la gestion des ressources de l'entreprise »",
+    img: "images/partenaires/partenaires/Oumaima mnijel.jpeg",
   },
   {
     init: "BA",
     name: "Mr. BOUCHAL Anouar",
     role: "Animateur Workshop",
     topic: "« Gouvernance SI — La vision d'ensemble souvent négligée »",
+    img: "images/partenaires/partenaires/bouchal anouar.png",
   },
   {
     init: "AK",
@@ -149,12 +164,14 @@ const SPEAKERS = [
     role: "Animateur Workshop",
     topic:
       "« Rise of Agentic AI — L'IA autonome et son impact sur la gouvernance »",
+    img: "images/partenaires/partenaires/Adil Karim.png",
   },
   {
     init: "EH",
     name: "Mr. ELOUIAAZZANI Hamza",
     role: "Animateur Workshop",
     topic: "« Formation pratique en Intelligence Artificielle »",
+    img: "images/partenaires/partenaires/Hamza ELOUIAAZANI.png",
   },
 ];
 
@@ -233,28 +250,41 @@ const ROUNDTABLE = [
       {
         name: "Mr. BOUAZZAOUI Aziz",
         role: "Directeur SI & Transformation Digitale",
+        img: "images/partenaires/partenaires/bouazzouzi.png",
       },
       { name: "Mme. HABYB ELLAH Khadija", role: "Chef de projet MOA/MOE" },
       { name: "Mr. ABDLKRIM Moudrika", role: "Chef de projet senior" },
       {
         name: "Mr. EL ANMANARI Nezha",
         role: "Senior IT Manager & Business Analyst",
+        img: "images/partenaires/partenaires/Nezha elanmanari.jpeg",
       },
-      { name: "Mme. BENAYADA Assya", role: "Modératrice", mod: true },
+      {
+        name: "Mme. BENAYADA Assya",
+        role: "Modératrice",
+        mod: true,
+        img: "images/partenaires/partenaires/Assya Benayada.png",
+      },
     ],
   },
   {
     tag: "Sharing Experience · 20 Avril",
     title: "Retours d'expérience",
     people: [
-      { name: "Mme. ATTAR Fatiha", role: "Business Analyst" },
+      {
+        name: "Mme. ATTAR Fatiha",
+        role: "Business Analyst",
+        img: "images/partenaires/partenaires/Fatiha attar.jpeg",
+      },
       {
         name: "Mr. AIT YOUSSEF Lahcen",
         role: "Consultant SAP & Lauréat ENSAKh",
+        img: "images/partenaires/partenaires/ait youssef.png",
       },
       {
         name: "Mr. MTOUAA Mourad",
         role: "DevOps Consultant & Software Engineer",
+        img: "images/partenaires/partenaires/Mourad mtouaa.jpeg",
       },
     ],
   },
@@ -263,7 +293,11 @@ const ROUNDTABLE = [
     title: "Jour 2 — Regards croisés",
     people: [
       { name: "AUSIM", role: "Technologie & Services de l'Information" },
-      { name: "Mr. EL JADID Othmane", role: "Entrepreneur" },
+      {
+        name: "Mr. EL JADID Othmane",
+        role: "Entrepreneur",
+        img: "images/partenaires/partenaires/Outhmane Eljadid.png",
+      },
     ],
   },
 ];
@@ -275,6 +309,7 @@ const TEAM = [
     cell: "Présidence",
     role: "Présidente",
     img: "images/opt/hajar.jpg",
+    linkedin: "https://www.linkedin.com/in/hajar-sennal-6a9ab3351/",
   },
   {
     init: "IF",
@@ -282,6 +317,7 @@ const TEAM = [
     cell: "Présidence",
     role: "Vice-président",
     img: "images/opt/fahd.jpg",
+    linkedin: "https://www.linkedin.com/in/fahd-ichmawin/",
   },
   {
     init: "BY",
@@ -289,6 +325,7 @@ const TEAM = [
     cell: "Cellule Technique",
     role: "Responsable",
     img: "images/opt/yassmine.jpg",
+    linkedin: "https://www.linkedin.com/in/yasmine-bennis04",
   },
   {
     init: "ED",
@@ -296,6 +333,7 @@ const TEAM = [
     cell: "Cellule Technique",
     role: "Vice-responsable",
     img: "images/opt/douaa.jpg",
+    linkedin: "https://www.linkedin.com/in/douae-el-allam-6b0616317",
   },
   {
     init: "GH",
@@ -303,6 +341,7 @@ const TEAM = [
     cell: "Cellule Média",
     role: "Responsable",
     img: "images/opt/haytam.jpg",
+    linkedin: "https://www.linkedin.com/in/haytam-elg",
   },
   {
     init: "SZ",
@@ -310,6 +349,7 @@ const TEAM = [
     cell: "Cellule Média",
     role: "Vice-responsable",
     img: "images/opt/zyad.jpg",
+    linkedin: "https://www.linkedin.com/in/ziyad-samhaoui-185782362",
   },
   {
     init: "CF",
@@ -317,6 +357,7 @@ const TEAM = [
     cell: "Compétition",
     role: "Responsable",
     img: "images/opt/fatima.jpg",
+    linkedin: "https://www.linkedin.com/in/choujaafatimazahra",
   },
   {
     init: "AI",
@@ -324,6 +365,7 @@ const TEAM = [
     cell: "Compétition",
     role: "Vice-responsable",
     img: "images/opt/imad.jpg",
+    linkedin: "https://www.linkedin.com/in/imad-atmani-910a20383",
   },
   {
     init: "AZ",
@@ -331,6 +373,7 @@ const TEAM = [
     cell: "Logistique",
     role: "Responsable",
     img: "images/opt/zineb.jpg",
+    linkedin: "https://www.linkedin.com/in/zinebazaroual",
   },
   {
     init: "ZA",
@@ -338,6 +381,7 @@ const TEAM = [
     cell: "Logistique",
     role: "Vice-responsable",
     img: "images/opt/abdlkrim.jpg",
+    linkedin: "https://www.linkedin.com/in/abdelkrim-zidouh-4917a5334",
   },
   {
     init: "AY",
@@ -345,6 +389,7 @@ const TEAM = [
     cell: "Sponsoring",
     role: "Responsable",
     img: "images/opt/youssra.jpg",
+    linkedin: "https://www.linkedin.com/in/yousra-atti",
   },
   {
     init: "SN",
@@ -352,6 +397,7 @@ const TEAM = [
     cell: "Sponsoring",
     role: "Vice-responsable",
     img: "images/opt/nouhaila.jpg",
+    linkedin: "https://www.linkedin.com/in/sadiki-nouhaila",
   },
   {
     init: "HI",
@@ -359,6 +405,7 @@ const TEAM = [
     cell: "Conférences & Ateliers",
     role: "Responsable",
     img: "images/opt/ihssane.jpg",
+    linkedin: "https://www.linkedin.com/in/ihsane-hafidi-a80859304",
   },
   {
     init: "RS",
@@ -366,6 +413,7 @@ const TEAM = [
     cell: "Conférences & Ateliers",
     role: "Vice-responsable",
     img: "images/opt/sara.jpg",
+    linkedin: "https://www.linkedin.com/in/sara-rahali",
   },
   {
     init: "NS",
@@ -373,6 +421,7 @@ const TEAM = [
     cell: "Divertissement",
     role: "Responsable",
     img: "images/opt/samira.jpg",
+    linkedin: "https://www.linkedin.com/in/samira-nafi-017372326",
   },
   {
     init: "AA",
@@ -380,6 +429,7 @@ const TEAM = [
     cell: "Divertissement",
     role: "Vice-responsable",
     img: "images/opt/ayoub.jpg",
+    linkedin: "#",
   },
   {
     init: "CM",
@@ -387,6 +437,7 @@ const TEAM = [
     cell: "Trésorerie",
     role: "Responsable",
     img: "images/opt/cherif.jpg",
+    linkedin: "https://www.linkedin.com/in/cherif-madani-078296244",
   },
 ];
 
@@ -844,7 +895,13 @@ function renderSpeakers() {
   grid.innerHTML = SPEAKERS.map(
     (s) => `
     <div class="spk-card">
-      <div class="spk-avatar">${s.init}</div>
+      <div class="spk-avatar">
+        ${
+          s.img
+            ? `<img src="${encodeURI(s.img)}" alt="${s.name}" loading="lazy" decoding="async" width="96" height="96">`
+            : s.init
+        }
+      </div>
       <div class="spk-name">${s.name}</div>
       <div class="spk-role">${s.role}</div>
       <p class="spk-topic">${s.topic}</p>
@@ -888,7 +945,11 @@ function renderRoundtable() {
           .map(
             (p) => `
           <li class="rtp-person${p.mod ? " rtp-mod" : ""}">
-            ${p.img ? `<span class="rtp-ava"><img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async" width="38" height="38"></span>` : ""}
+            ${
+              p.img
+                ? `<span class="rtp-ava"><img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy" decoding="async" width="56" height="56"></span>`
+                : ""
+            }
             <div class="rtp-text">
               <span class="rtp-name">${p.name}</span>
               <span class="rtp-role">${p.role}</span>
@@ -936,18 +997,33 @@ renderCompTimeline();
 function renderTeam() {
   const grid = document.getElementById("teamGrid");
   if (!grid) return;
-  grid.innerHTML = TEAM.map(
-    (m) => `
+  grid.innerHTML = TEAM.map((m) => {
+    const isPlaceholder = m.linkedin === "#";
+    return `
     <div class="tm-card">
       <div class="tm-ava">
-        ${m.img ? `<img src="${m.img}" alt="${m.name}" loading="lazy" decoding="async" width="52" height="52">` : m.init}
+        ${m.img ? `<img src="${m.img}" alt="${m.name}" loading="lazy" decoding="async" width="72" height="72">` : m.init}
       </div>
       <div class="tm-name">${m.name}</div>
       <div class="tm-cell">${m.cell}</div>
       <div class="tm-role">${m.role}</div>
+      ${
+        m.linkedin
+          ? `<a class="tm-link${isPlaceholder ? " is-placeholder" : ""}" href="${m.linkedin}" ${
+              isPlaceholder
+                ? 'aria-disabled="true"'
+                : 'target="_blank" rel="noopener noreferrer"'
+            } aria-label="LinkedIn de ${m.name}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.98 3.5a2.48 2.48 0 1 1-.01 4.96 2.48 2.48 0 0 1 .01-4.96zM3 8.98h3.96V21H3V8.98zm7.5 0h3.79v1.63h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-3.96v-5.43c0-1.3-.03-2.97-1.81-2.97-1.82 0-2.1 1.42-2.1 2.88V21H10.5V8.98z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>`
+          : ""
+      }
     </div>
-  `,
-  ).join("");
+  `;
+  }).join("");
 }
 renderTeam();
 
@@ -1137,93 +1213,44 @@ document
 // ================================================
 (async function initIntro() {
   const intro = document.getElementById("intro");
-  const roadEl = document.getElementById("introRoad");
   const titleEl = document.getElementById("introTitle");
   const tagEl = document.getElementById("introTagline");
+  const progressEl = document.getElementById("introProgress");
   if (!intro) return;
 
   document.body.style.overflow = "hidden";
   document.body.classList.add("intro-active");
 
-  // ── Shared finish ────────────────────────────────────────────────
-  function finishIntro(hs) {
+  if (titleEl) titleEl.textContent = "DigitalGov";
+  if (tagEl) tagEl.textContent = "0.1 — De la donnée à la décision";
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const duration = reduceMotion ? 800 : 1600;
+  const hold = reduceMotion ? 200 : 400;
+  const start = performance.now();
+
+  function tick(now) {
+    if (!progressEl) return;
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    progressEl.style.width = `${Math.round(eased * 100)}%`;
+    if (t < 1) requestAnimationFrame(tick);
+  }
+
+  if (progressEl) {
+    progressEl.style.width = "0%";
+    requestAnimationFrame(tick);
+  }
+
+  setTimeout(() => {
+    intro.classList.add("fade-out");
     document.body.style.overflow = "";
-    intro.classList.add("split-out");
     document.body.classList.remove("intro-active");
     document.body.classList.add("site-ready");
     setTimeout(() => {
       intro.classList.add("gone");
-      if (hs && hs.dispose) hs.dispose();
-    }, 1350);
-  }
-
-  // ── Typing helper ────────────────────────────────────────────────
-  function typeText(el, text, delay = 80) {
-    return new Promise((res) => {
-      el.textContent = "";
-      let i = 0;
-      const iv = setInterval(() => {
-        el.textContent += text[i++];
-        if (i >= text.length) {
-          clearInterval(iv);
-          res();
-        }
-      }, delay);
-    });
-  }
-
-  // ── Touch / mobile: run a lighter hyperspeed preset ─────────────
-  const isTouch = window.matchMedia(
-    "(hover:none) and (pointer:coarse)",
-  ).matches;
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  const mobilePreset = {
-    length: 260,
-    roadWidth: 8,
-    islandWidth: 1.5,
-    lanesPerRoad: 2,
-    totalSideLightSticks: 30,
-    lightPairsPerRoadWay: 30,
-    movingAwaySpeed: [40, 60],
-    movingCloserSpeed: [-80, -120],
-    carLightsLength: [260 * 0.05, 260 * 0.12],
-    maxPixelRatio: 1.2,
-    bloomStrength: 1.6,
-    bloomRadius: 0.35,
-    bloomThreshold: 0.2,
-    fov: 95,
-    fovSpeedUp: 130,
-    speedUp: 1.4,
-  };
-  const introPreset = isTouch || reduceMotion ? mobilePreset : {};
-
-  if (!roadEl) {
-    if (titleEl) titleEl.textContent = "DigitalGov";
-    if (tagEl) tagEl.textContent = "0.1 — De la donnée à la décision";
-    await new Promise((res) => setTimeout(res, 1200));
-    finishIntro(null);
-    return;
-  }
-
-  // ── Desktop: full Three.js hyperspeed ────────────────────────────
-  let hs = null;
-  try {
-    hs = createHyperspeed(roadEl, introPreset);
-  } catch (e) {
-    finishIntro(null);
-    return;
-  }
-
-  try {
-    await new Promise((res) => setTimeout(res, 500));
-    await typeText(titleEl, "DigitalGov", 85);
-    await new Promise((res) => setTimeout(res, 180));
-    await typeText(tagEl, "0.1 — De la donnée à la décision", 32);
-    await new Promise((res) => setTimeout(res, 1100));
-    finishIntro(hs);
-  } catch (e) {
-    finishIntro(hs);
-  }
+    }, 500);
+  }, duration + hold);
 })();

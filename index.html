@@ -11,34 +11,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-        }
-      }
-    </script>
   </head>
   <body>
     <!-- ═══ INTRO LOADER ═══ -->
     <div id="intro" aria-hidden="true">
-      <div id="introRoad"></div>
-      <div class="intro-vignette"></div>
-      <div class="intro-top-bar"></div>
-      <div class="intro-bot-bar"></div>
       <div class="intro-center">
         <div class="ic-eyebrow">
           <span class="ic-dot"></span>MGSI · ENSA Khouribga · 2026
         </div>
         <div class="ic-title" id="introTitle"></div>
         <div class="ic-tagline" id="introTagline"></div>
+        <div class="ic-progress-wrap" aria-hidden="true">
+          <div class="ic-progress" id="introProgress"></div>
+        </div>
       </div>
-      <div class="intro-flash" id="introFlash"></div>
     </div>
 
     <!-- Noise Overlay -->
@@ -539,8 +529,8 @@
                       alt="Mr. KHALFI Hamza"
                       loading="lazy"
                       decoding="async"
-                      width="48"
-                      height="48"
+                      width="72"
+                      height="72"
                     />
                   </div>
                   <div class="sup-info">
@@ -559,8 +549,8 @@
                       alt="Mr. AGHRICHE Ahmed"
                       loading="lazy"
                       decoding="async"
-                      width="48"
-                      height="48"
+                      width="72"
+                      height="72"
                     />
                   </div>
                   <div class="sup-info">
