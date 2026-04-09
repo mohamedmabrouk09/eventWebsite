@@ -46,24 +46,18 @@ const DAYS = {
     },
     {
       t: "15:05",
-      e: "Workshop — Formation ERP",
-      w: "Mme. MNIJEL Oumaima",
+      e: "Workshop — Formation pratique IA",
+      w: "Mr. EL OUIAAZZANI Hamza & Mr. OUBAL Mohamed",
       hl: false,
     },
     { t: "16:00", e: "Pause café", w: "", hl: false },
     {
       t: "16:20",
-      e: "Workshop — Formation pratique IA",
-      w: "Mr. EL OUIAAZZANI Hamza & Mr. OUBAL Mohamed",
-      hl: false,
-    },
-    {
-      t: "17:00",
       e: "Sharing Experience",
       w: "Mme. ATTAR Fatiha · Mr. AIT YOUSSEF Lahcen · Mr. MTOUAA Mourad",
       hl: false,
     },
-    { t: "18:00", e: "Pause musicale", w: "", hl: false },
+    { t: "17:00", e: "Pause musicale", w: "", hl: false },
     { t: "18:30", e: "Clôture — Jour 1", w: "", hl: false },
   ],
   2: [
@@ -77,8 +71,8 @@ const DAYS = {
     },
     {
       t: "11:00",
-      e: "Conférence — Entrepreneuriat & Management SI",
-      w: "Mr. ONMAZIR Ahmed",
+      e: "Workshop — Formation ERP",
+      w: "Mme. MNIJEL Oumaima",
       hl: false,
     },
     { t: "12:00", e: "Pause déjeuner", w: "", hl: false },
@@ -149,7 +143,7 @@ const SPEAKERS = [
     role: "Animatrice Workshop",
     topic:
       "« Formation ERP — Optimiser la gestion des ressources de l'entreprise »",
-    img: "images/partenaires/partenaires/Oumaima mnijel.jpeg",
+    img: "images/partenaires/partenaires/Oumaima mnijel.png",
   },
   {
     init: "BA",
@@ -262,7 +256,6 @@ const ROUNDTABLE = [
       {
         name: "Mme. BENAYADA Assya",
         role: "Modératrice",
-        mod: true,
         img: "images/partenaires/partenaires/Assya Benayada.png",
       },
     ],
@@ -1091,8 +1084,34 @@ document.querySelectorAll(".faq-q").forEach((btn) => {
 const EMAILJS_PUBLIC_KEY = "Szbbymzu1hbBXPx14"; // Account → API Keys
 const EMAILJS_SERVICE_ID = "service_abc123"; // Email Services tab
 const EMAILJS_TEMPLATE_ID = "template_dabpkn6"; // Email Templates tab
+const GOOGLE_SHEETS_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbzucJnxG_DI3976HbO0CFdy06_m9BjNRFaM9wWSjCGN5WwkvFlv24b7b0mflrcNj0FQCQ/exec";
 
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+function sendToGoogleSheets(payload) {
+  const formData = new FormData();
+  Object.entries(payload).forEach(([key, value]) => {
+    formData.append(key, value ?? "");
+  });
+
+  if (navigator.sendBeacon) {
+    const body = new URLSearchParams(payload).toString();
+    const blob = new Blob([body], {
+      type: "application/x-www-form-urlencoded;charset=UTF-8",
+    });
+    const queued = navigator.sendBeacon(GOOGLE_SHEETS_ENDPOINT, blob);
+    if (queued) {
+      return Promise.resolve({ beacon: true });
+    }
+  }
+
+  return fetch(GOOGLE_SHEETS_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData,
+  });
+}
 
 document.getElementById("regForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -1101,35 +1120,56 @@ document.getElementById("regForm").addEventListener("submit", function (e) {
   const success = document.getElementById("rfSuccess");
 
   // Collect checked participation boxes
-  const checked =
-    [...form.querySelectorAll('input[name="participation"]:checked')]
-      .map((cb) => cb.value)
-      .join(", ") || "—";
+  const selected = new Set(
+    [...form.querySelectorAll('input[name="participation"]:checked')].map(
+      (cb) => cb.value,
+    ),
+  );
+  const checked = [...selected].join(", ") || "—";
 
   const templateParams = {
     prenom: form.prenom.value.trim(),
     nom: form.nom.value.trim(),
     email: form.email.value.trim(),
-    telephone: form.telephone.value.trim() || "—",
-    etablissement: form.etablissement.value.trim() || "—",
-    ville: form.ville.value.trim() || "—",
-    profil: form.profil.value || "—",
+    telephone: form.telephone.value.trim(),
+    etablissement: form.etablissement.value.trim(),
+    ville: form.ville.value.trim(),
+    profil: form.profil.value,
     participation: checked,
+    ateliers: selected.has("Ateliers") ? "Oui" : "",
+    competition: selected.has("Compétition") ? "Oui" : "",
+    sponsoring: selected.has("Sponsoring") ? "Oui" : "",
     to_email: form.email.value.trim(), // used in template as {{to_email}}
   };
 
   btn.disabled = true;
   btn.textContent = "Envoi en cours…";
 
-  emailjs
-    .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .then(() => {
+  const emailPromise = emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    templateParams,
+  );
+  const sheetsPromise = sendToGoogleSheets({
+    ...templateParams,
+    submitted_at: new Date().toISOString(),
+  });
+
+  Promise.allSettled([emailPromise, sheetsPromise])
+    .then((results) => {
+      const emailOk = results[0].status === "fulfilled";
+      const sheetsOk = results[1].status === "fulfilled";
+
+      if (!emailOk && !sheetsOk) {
+        throw new Error("EmailJS and Sheets failed");
+      }
+
       success.style.display = "flex";
       form.reset();
       setTimeout(() => (success.style.display = "none"), 6000);
     })
     .catch((err) => {
-      console.error("EmailJS error:", err);
+      console.error("Registration error:", err);
       alert(
         "Une erreur est survenue. Veuillez réessayer ou contacter digitalgovdays@gmail.com",
       );
