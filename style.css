@@ -1678,6 +1678,10 @@ body.hovering-text .cursor-text {
   line-height: 1.8;
   margin-bottom: 2rem;
 }
+.comp-switcher {
+  margin: 1.4rem 0 1.6rem;
+  flex-wrap: wrap;
+}
 .comp-timeline {
   display: flex;
   flex-direction: column;
@@ -3167,7 +3171,16 @@ body.site-ready .hero-float-2 {
     gap: 2.5rem;
   }
   .comp-badge-wrap {
-    display: none;
+    display: flex;
+    margin: 0 auto;
+  }
+  .comp-ring-outer {
+    width: clamp(200px, 72vw, 240px);
+    height: clamp(200px, 72vw, 240px);
+  }
+  .comp-core {
+    width: clamp(120px, 45vw, 150px);
+    height: clamp(120px, 45vw, 150px);
   }
   .competition {
     padding: 5rem 0;

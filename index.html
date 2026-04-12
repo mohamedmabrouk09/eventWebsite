@@ -482,16 +482,36 @@
       <div class="container comp-inner">
         <div class="comp-content" data-ani="fade-up">
           <p class="section-label light">Compétition</p>
+          <div
+            class="prog-switcher comp-switcher"
+            role="tablist"
+            aria-label="Choisir la compétition"
+          >
+            <button class="ps-btn ps-active" data-comp="python" type="button">
+              <span class="psb-n">01</span>
+              <span class="psb-info">
+                <span class="psb-title">Python</span>
+                <span class="psb-date">Competition</span>
+              </span>
+            </button>
+            <button class="ps-btn" data-comp="data" type="button">
+              <span class="psb-n">02</span>
+              <span class="psb-info">
+                <span class="psb-title">Data</span>
+                <span class="psb-date">Challenge</span>
+              </span>
+            </button>
+          </div>
           <h2 class="section-h light cmp-h">
-            Competition<br /><em>Python</em>
+            <span id="compTitle">Competition<br /><em>Python</em></span>
           </h2>
-          <p class="comp-sub">
+          <p class="comp-sub" id="compSub">
             Défi pour les étudiants des deux années préparatoires. Mettez en
             pratique la programmation sur des cas réels devant un jury de
             professionnels.
           </p>
           <div class="comp-timeline" id="compTimeline"></div>
-          <a href="#inscription" class="btn-primary btn-lg"
+          <a href="#inscription" class="btn-primary btn-lg" id="compCta"
             >Rejoindre la compétition →</a
           >
         </div>
@@ -500,8 +520,8 @@
             <div class="comp-ring-mid"></div>
             <div class="comp-ring-inner"></div>
             <div class="comp-core">
-              <span class="cc-title">Python</span>
-              <span class="cc-sub">Competition 2026</span>
+              <span class="cc-title" id="compBadgeTitle">Python</span>
+              <span class="cc-sub" id="compBadgeSub">Competition 2026</span>
               <span class="cc-tag">DigitalGov 0.1</span>
             </div>
           </div>
@@ -1070,6 +1090,16 @@
           </div>
           <div class="faq-i" data-ani="fade-up" data-delay="180">
             <button class="faq-q">
+              Puis-je participer au DigitalGov Data Challenge ?<span>+</span>
+            </button>
+            <div class="faq-a">
+              Oui, le Data Challenge est un mini-hackathon analytique en équipe
+              pour transformer des données en décision. Retrouvez toutes les
+              informations sur la page du challenge.
+            </div>
+          </div>
+          <div class="faq-i" data-ani="fade-up" data-delay="240">
+            <button class="faq-q">
               Des attestations seront-elles délivrées ?<span>+</span>
             </button>
             <div class="faq-a">
@@ -1077,7 +1107,7 @@
               à tous les participants.
             </div>
           </div>
-          <div class="faq-i" data-ani="fade-up" data-delay="240">
+          <div class="faq-i" data-ani="fade-up" data-delay="300">
             <button class="faq-q">
               Y a-t-il un dress code ?<span>+</span>
             </button>

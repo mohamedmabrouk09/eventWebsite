@@ -102,6 +102,53 @@ const DAYS = {
   ],
 };
 
+const COMPETITIONS = {
+  python: {
+    title: "Competition<br /><em>Python</em>",
+    sub: "Défi pour les étudiants des deux années préparatoires. Mettez en pratique la programmation sur des cas réels devant un jury de professionnels.",
+    cta: {
+      text: "Rejoindre la compétition →",
+      href: "#inscription",
+      external: false,
+    },
+    badgeTitle: "Python",
+    badgeSub: "Competition 2026",
+    timeline: [
+      { date: "20 Avril · 09:30", ev: "Lancement du Hackathon", hl: true },
+      { date: "21 Avril · 10:10", ev: "Finale Competition Python", hl: true },
+      { date: "21 Avril · 16:25", ev: "Finale Hackathon", hl: true },
+    ],
+  },
+  data: {
+    title: "Competition<br /><em>Data Challenge</em>",
+    sub: "Un mini-hackathon analytique où les équipes transforment des jeux de données réels en décisions stratégiques. L'objectif : passer de la donnée à la décision.",
+    cta: {
+      text: "Accéder au Data Challenge →",
+      href: "https://datachallenge.vercel.app/",
+      external: true,
+    },
+    badgeTitle: "Data",
+    badgeSub: "Challenge 2026",
+    timeline: [
+      {
+        date: "Format",
+        ev: "Mini-hackathon analytique sur un cas réel",
+        hl: true,
+      },
+      {
+        date: "Mission",
+        ev: "Explorer, nettoyer et raconter la donnée",
+        hl: false,
+      },
+      {
+        date: "Finale",
+        ev: "Décision stratégique & pitch jury",
+        hl: true,
+      },
+    ],
+  },
+};
+
 const SPEAKERS = [
   {
     init: "HM",
@@ -809,11 +856,10 @@ function renderDay(day) {
   });
 }
 
-document.querySelectorAll(".ps-btn").forEach((btn) => {
+const progButtons = document.querySelectorAll("#programme .ps-btn");
+progButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    document
-      .querySelectorAll(".ps-btn")
-      .forEach((b) => b.classList.remove("ps-active"));
+    progButtons.forEach((b) => b.classList.remove("ps-active"));
     btn.classList.add("ps-active");
     renderDay(Number(btn.dataset.day));
   });
@@ -901,14 +947,10 @@ renderRoundtable();
 // ================================================
 // COMPETITION TIMELINE
 // ================================================
-function renderCompTimeline() {
-  const data = [
-    { date: "20 Avril · 09:30", ev: "Lancement du Hackathon", hl: true },
-    { date: "21 Avril · 10:10", ev: "Finale Competition Python", hl: true },
-    { date: "21 Avril · 16:25", ev: "Finale Hackathon", hl: true },
-  ];
+function renderCompTimeline(items) {
   const ct = document.getElementById("compTimeline");
-  ct.innerHTML = data
+  if (!ct) return;
+  ct.innerHTML = items
     .map(
       (d) => `
     <div class="ct-row${d.hl ? " hl" : ""}">
@@ -920,7 +962,63 @@ function renderCompTimeline() {
     )
     .join("");
 }
-renderCompTimeline();
+
+function setCompetition(key) {
+  const data = COMPETITIONS[key];
+  if (!data) return;
+
+  const titleEl = document.getElementById("compTitle");
+  if (titleEl) {
+    titleEl.innerHTML = data.title;
+  }
+
+  const subEl = document.getElementById("compSub");
+  if (subEl) {
+    subEl.textContent = data.sub;
+  }
+
+  const ctaEl = document.getElementById("compCta");
+  if (ctaEl) {
+    ctaEl.textContent = data.cta.text;
+    ctaEl.setAttribute("href", data.cta.href);
+    if (data.cta.external) {
+      ctaEl.setAttribute("target", "_blank");
+      ctaEl.setAttribute("rel", "noopener noreferrer");
+    } else {
+      ctaEl.removeAttribute("target");
+      ctaEl.removeAttribute("rel");
+    }
+  }
+
+  const badgeTitleEl = document.getElementById("compBadgeTitle");
+  if (badgeTitleEl) {
+    badgeTitleEl.textContent = data.badgeTitle;
+  }
+
+  const badgeSubEl = document.getElementById("compBadgeSub");
+  if (badgeSubEl) {
+    badgeSubEl.textContent = data.badgeSub;
+  }
+
+  renderCompTimeline(data.timeline);
+}
+
+const compButtons = document.querySelectorAll(".comp-switcher .ps-btn");
+const setCompActive = (key) => {
+  compButtons.forEach((b) => {
+    const isActive = b.dataset.comp === key;
+    b.classList.toggle("ps-active", isActive);
+    b.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+};
+compButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    setCompActive(btn.dataset.comp);
+    setCompetition(btn.dataset.comp);
+  });
+});
+setCompActive("python");
+setCompetition("python");
 
 // ================================================
 // TEAM
