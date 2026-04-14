@@ -273,7 +273,11 @@ const ROUNDTABLE = [
     tag: "Table ronde · 21 Avril",
     title: "AUSIM & Othmane El Jadid",
     people: [
-      { name: "AUSIM", role: "Association" },
+      {
+        name: "AUSIM",
+        role: "Association",
+        img: "images/partenaires/partenaires/ausim.png",
+      },
       {
         name: "Othmane El Jadid",
         role: "Entrepreneur",
@@ -922,12 +926,13 @@ function renderRoundtable() {
       <h3 class="rtp-title">${panel.title}</h3>
       <ul class="rtp-list">
         ${panel.people
-          .map(
-            (p) => `
+          .map((p) => {
+            const isLogo = p.name === "AUSIM";
+            return `
           <li class="rtp-person${p.mod ? " rtp-mod" : ""}">
             ${
               p.img
-                ? `<span class="rtp-ava"><img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy" decoding="async" width="56" height="56"></span>`
+                ? `<span class="rtp-ava${isLogo ? " is-logo" : ""}"><img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy" decoding="async" width="56" height="56"></span>`
                 : ""
             }
             <div class="rtp-text">
@@ -935,8 +940,8 @@ function renderRoundtable() {
               <span class="rtp-role">${p.role}</span>
             </div>
           </li>
-        `,
-          )
+        `;
+          })
           .join("")}
       </ul>
     </div>

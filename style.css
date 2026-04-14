@@ -1624,6 +1624,14 @@ body.hovering-text .cursor-text {
   object-position: center;
   display: block;
 }
+.rtp-ava.is-logo {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+.rtp-ava.is-logo img {
+  object-fit: contain;
+  background: #ffffff;
+}
 .rtp-text {
   display: flex;
   flex-direction: column;
