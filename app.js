@@ -224,6 +224,7 @@ const ROUNDTABLE = [
       {
         name: "Khadija Habyb Ellah",
         role: "Chef de projet MOA/MOE",
+        img: "images/partenaires/partenaires/Khadija habyb ellah.png",
       },
       {
         name: "Moudrika Abdelkrim",
@@ -262,9 +263,9 @@ const ROUNDTABLE = [
         img: "images/partenaires/partenaires/Mourad mtouaa.jpeg",
       },
       {
-        name: "Faima Azzahra Abardoua",
-        role: "Chef de projet AMOA SI, ENSIAS",
-        img: "images/partenaires/partenaires/abardoua.png",
+        name: "Othmane MANOUN",
+        role: "Fondateur de BOOSTOO, Partenaire Odoo Maroc",
+        img: "images/partenaires/partenaires/Othmane manoun.png",
       },
     ],
   },
