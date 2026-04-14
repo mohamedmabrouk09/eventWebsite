@@ -265,7 +265,7 @@ const ROUNDTABLE = [
       {
         name: "Othmane MANOUN",
         role: "Fondateur de BOOSTOO, Partenaire Odoo Maroc",
-        img: "images/partenaires/partenaires/Othmane manoun.png",
+        img: "images/partenaires/partenaires/Othmane MANOUN.png",
       },
     ],
   },
