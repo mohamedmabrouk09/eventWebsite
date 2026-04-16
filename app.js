@@ -1293,8 +1293,91 @@ document
 // ================================================
 // INTRO LOADER
 // ================================================
+function applyGlitchText(el, text) {
+  if (!el) return;
+  const safeText = String(text);
+  el.dataset.glitchText = safeText;
+  el.classList.add("glitch");
+  el.innerHTML = `
+    <span class="glitch-base">${safeText}</span>
+    <span class="glitch-layer glitch-layer-1" aria-hidden="true">${safeText}</span>
+    <span class="glitch-layer glitch-layer-2" aria-hidden="true">${safeText}</span>
+  `;
+}
+
+const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%*+=?!";
+
+function setGlitchText(el, text) {
+  if (!el) return;
+  const safeText = String(text);
+  const base = el.querySelector(".glitch-base");
+  if (!base) {
+    el.textContent = safeText;
+    return;
+  }
+  base.textContent = safeText;
+  el.querySelectorAll(".glitch-layer").forEach((layer) => {
+    layer.textContent = safeText;
+  });
+}
+
+function scrambleText(text, intensity = 0.28) {
+  const chars = Array.from(String(text));
+  return chars
+    .map((ch) => {
+      if (ch.trim() === "") return ch;
+      const isLetter = ch.toLowerCase() !== ch.toUpperCase();
+      const isDigit = ch >= "0" && ch <= "9";
+      if (!isLetter && !isDigit) return ch;
+      if (Math.random() > intensity) return ch;
+      return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+    })
+    .join("");
+}
+
+function startGlitchPulse(el, options = {}) {
+  if (!el) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const minDelay = options.minDelay ?? 700;
+  const maxDelay = options.maxDelay ?? 2000;
+  const minDuration = options.minDuration ?? 120;
+  const maxDuration = options.maxDuration ?? 360;
+  const intensity = options.intensity ?? 0.28;
+  const intervalMs = options.intervalMs ?? 45;
+
+  const schedule = () => {
+    if (!el.isConnected) return;
+    const delay = Math.floor(minDelay + Math.random() * (maxDelay - minDelay));
+    setTimeout(() => {
+      if (!el.isConnected) return;
+      const original = el.dataset.glitchText ?? el.textContent ?? "";
+      el.classList.add("is-glitching");
+      const duration = Math.floor(
+        minDuration + Math.random() * (maxDuration - minDuration),
+      );
+      const timer = setInterval(() => {
+        if (!el.isConnected) {
+          clearInterval(timer);
+          return;
+        }
+        setGlitchText(el, scrambleText(original, intensity));
+      }, intervalMs);
+      setTimeout(() => {
+        clearInterval(timer);
+        setGlitchText(el, original);
+        el.classList.remove("is-glitching");
+        schedule();
+      }, duration);
+    }, delay);
+  };
+
+  schedule();
+}
+
 (async function initIntro() {
   const intro = document.getElementById("intro");
+  const eyebrowEl = document.getElementById("introEyebrow");
   const titleEl = document.getElementById("introTitle");
   const tagEl = document.getElementById("introTagline");
   const progressEl = document.getElementById("introProgress");
@@ -1303,14 +1386,38 @@ document
   document.body.style.overflow = "hidden";
   document.body.classList.add("intro-active");
 
-  if (titleEl) titleEl.textContent = "DigitalGov";
-  if (tagEl) tagEl.textContent = "0.1 — De la donnée à la décision";
+  const eyebrowText = "MGSI . ENSA KHOURIBGA . 2026";
+  const titleText = "DIGITALGOV";
+  const taglineText = "0.1 - DE LA DONNÉE À LA DÉCISION";
+
+  applyGlitchText(eyebrowEl, eyebrowText);
+  applyGlitchText(titleEl, titleText);
+  applyGlitchText(tagEl, taglineText);
+
+  startGlitchPulse(eyebrowEl, {
+    minDelay: 900,
+    maxDelay: 2000,
+    minDuration: 240,
+    maxDuration: 520,
+  });
+  startGlitchPulse(titleEl, {
+    minDelay: 600,
+    maxDelay: 1500,
+    minDuration: 260,
+    maxDuration: 600,
+  });
+  startGlitchPulse(tagEl, {
+    minDelay: 1000,
+    maxDelay: 2300,
+    minDuration: 220,
+    maxDuration: 520,
+  });
 
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  const duration = reduceMotion ? 800 : 1600;
-  const hold = reduceMotion ? 200 : 400;
+  const duration = reduceMotion ? 1000 : 2400;
+  const hold = reduceMotion ? 250 : 700;
   const start = performance.now();
 
   function tick(now) {
