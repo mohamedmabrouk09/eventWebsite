@@ -1497,6 +1497,48 @@ body.hovering-text .cursor-text {
   border-color: rgba(6, 182, 212, 0.3);
   background: rgba(6, 182, 212, 0.04);
 }
+.ac-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.ac-ava {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+}
+.ac-ava img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.ac-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+@media (max-width: 640px) {
+  .ac-ava {
+    width: 72px;
+    height: 72px;
+    font-size: 0.9rem;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+  }
+}
 .ac-pill {
   display: inline-block;
   font-size: 0.6rem;
@@ -1522,21 +1564,21 @@ body.hovering-text .cursor-text {
 .ac-date {
   font-size: 0.7rem;
   color: var(--muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0;
   font-weight: 500;
 }
 .ac-title {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
   line-height: 1.35;
 }
 .ac-presenter {
   font-size: 0.78rem;
   color: var(--cyan);
   font-weight: 600;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0;
 }
 .ac-desc {
   font-size: 0.8rem;

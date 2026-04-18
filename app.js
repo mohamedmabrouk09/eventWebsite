@@ -183,6 +183,7 @@ const WORKSHOPS = [
     date: "20 Avril 2026 · 15:05",
     title: "Intelligence artificielle et Smart Cities",
     who: "Hamza ELOUIAAZZANI",
+    img: "images/partenaires/partenaires/Hamza ELOUIAAZANI.png",
     desc: "Optimiser la mobilité urbaine grâce à l'IA et aux villes intelligentes.",
   },
   {
@@ -191,6 +192,7 @@ const WORKSHOPS = [
     date: "21 Avril 2026 · 09:00",
     title: "ERP",
     who: "Oumaima MNIJEL",
+    img: "images/partenaires/partenaires/Oumaima mnijel.png",
     desc: "Optimisation des processus via les systèmes ERP.",
   },
   {
@@ -199,6 +201,7 @@ const WORKSHOPS = [
     date: "21 Avril 2026 · 11:45",
     title: "Automatisation",
     who: "Youness Zemzgui",
+    img: "images/partenaires/partenaires/Youness zemzgui.jpeg",
     desc: "Automatiser les tâches et flux SI pour gagner en efficacité.",
   },
   {
@@ -207,6 +210,7 @@ const WORKSHOPS = [
     date: "21 Avril 2026 · 14:10",
     title: "Coaching carrière",
     who: "Anass ESSEMLALI",
+    img: "images/partenaires/partenaires/essemlali.png",
     desc: "Conseils pratiques pour réussir sa trajectoire professionnelle.",
   },
 ];
@@ -900,13 +904,32 @@ renderSpeakers();
 // ================================================
 function renderAteliers() {
   const grid = document.getElementById("atelierGrid");
+  const getInitials = (name) =>
+    String(name)
+      .trim()
+      .split(/\s+/)
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
   grid.innerHTML = WORKSHOPS.map(
     (w) => `
     <div class="atelier-card">
       <span class="ac-pill ${w.pill}">${w.label}</span>
-      <div class="ac-date">${w.date}</div>
-      <div class="ac-title">${w.title}</div>
-      <div class="ac-presenter">${w.who}</div>
+      <div class="ac-profile">
+        <div class="ac-ava">
+          ${
+            w.img
+              ? `<img src="${encodeURI(w.img)}" alt="${w.who}" loading="lazy" decoding="async" width="88" height="88">`
+              : `<span>${getInitials(w.who)}</span>`
+          }
+        </div>
+        <div class="ac-meta">
+          <div class="ac-date">${w.date}</div>
+          <div class="ac-title">${w.title}</div>
+          <div class="ac-presenter">${w.who}</div>
+        </div>
+      </div>
       <p class="ac-desc">${w.desc}</p>
     </div>
   `,
