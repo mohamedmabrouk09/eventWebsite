@@ -301,7 +301,7 @@ const ROUNDTABLE = [
         img: "images/partenaires/partenaires/ausim.png",
       },
       {
-        name: "Ait Bamouh Younes",
+        name: "Ait Bamoh Youness",
         role: "Paneliste",
         img: "images/partenaires/partenaires/Ait Bamouh Younes2.png",
       },
