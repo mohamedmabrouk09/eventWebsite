@@ -19,85 +19,97 @@ window.addEventListener("beforeunload", () => {
 const DAYS = {
   1: [
     { t: "08:30", e: "Accueil des invités", w: "", hl: false },
-    { t: "09:00", e: "Mot d'ouverture", w: "", hl: false },
-    { t: "09:30", e: "Lancement du Hackathon", w: "", hl: true },
+    {
+      t: "09:00",
+      e: "Mot d'ouverture & lancement du hackathon",
+      w: "",
+      hl: true,
+    },
+    { t: "09:30", e: "Pause café", w: "", hl: false },
     {
       t: "09:45",
-      e: "Conférence — Gouvernance des SI : pourquoi les meilleurs systèmes échouent sans elle",
+      e: "Conférence Gouvernance des systèmes d'information : pourquoi les meilleurs systèmes échouent sans elle",
       w: "Houda Mezouar",
       hl: false,
     },
-    { t: "10:35", e: "Pause café", w: "", hl: false },
+    { t: "10:35", e: "Pause", w: "", hl: false },
     {
       t: "10:55",
-      e: "Conférence — Audit de sécurité des systèmes d'information et gestion des risques",
-      w: "Jérémy Dubourg",
+      e: "Conférence Sécurité des systèmes d'information",
+      w: "Jeremy Dubourg",
       hl: false,
     },
-    { t: "12:00", e: "Passage des entreprises", w: "", hl: false },
-    { t: "12:20", e: "Lancement du Forum", w: "", hl: false },
-    { t: "13:00", e: "Pause déjeuner", w: "", hl: false },
     {
-      t: "14:15",
+      t: "12:00",
+      e: "Passage des entreprises & sponsoring · Lancement du forum",
+      w: "",
+      hl: false,
+    },
+    { t: "12:20", e: "Pause déjeuner", w: "", hl: false },
+    {
+      t: "13:00",
       e: "Table ronde des experts",
-      w: "Aziz Bouazzaoui · Khadija Habyb Ellah · Moudrika Abdelkrim · Nezha El Anmanari · Mod: Assya Benayada",
+      w: "Aziz Bouazzaqui · Khadija Habyb Ellah · Mouorika Abdelkrim · Youssra Atti (modératrice)",
       hl: true,
     },
     {
-      t: "15:05",
-      e: "Workshop 1 — Intelligence artificielle et Smart Cities : optimiser la mobilité urbaine",
-      w: "Hamza ELOUIAAZZANI",
+      t: "14:15",
+      e: "Workshop Intelligence artificielle et smart cities : optimiser la mobilité urbaine",
+      w: "Hamza Elduiazzani",
       hl: false,
     },
-    { t: "16:00", e: "Pause café", w: "", hl: false },
     {
-      t: "16:20",
-      e: "Conférence — Du technique au stratégique, la gouvernance des SI comme impératif systémique et critique",
+      t: "15:05",
+      e: "Conférence Du technique au stratégique : la gouvernance des SI comme impératif systémique et critique",
       w: "Mohamed Oubal",
       hl: false,
     },
     {
-      t: "17:00",
-      e: "Sharing Experience",
-      w: "Lahcen Ait Youssef · Fatiha Attar · Mourad Mtouaa · Faima Azzahra Abardoua",
+      t: "16:00",
+      e: "Sharing experience",
+      w: "Fatiha Attar · Mourad Mtouaa · Othmane Manoum",
       hl: false,
     },
-    { t: "18:00", e: "Pause musicale / Comédie", w: "", hl: false },
-    { t: "18:30", e: "Clôture", w: "", hl: false },
+    { t: "17:00", e: "Pause musicale", w: "", hl: false },
+    { t: "18:00", e: "Clôture", w: "", hl: false },
   ],
   2: [
     { t: "08:30", e: "Accueil des invités", w: "", hl: false },
     {
       t: "09:00",
-      e: "Workshop 1 — ERP",
-      w: "Oumaima MNIJEL",
+      e: "Workshop ERP au coeur de la transformation digitale des entreprises marocaines",
+      w: "Oumaima Mniel",
       hl: false,
     },
-    { t: "10:10", e: "Finale Competition Python", w: "", hl: true },
-    { t: "10:25", e: "Pause café", w: "", hl: false },
-    { t: "10:45", e: "Conférence 2", w: "AUSIM", hl: false },
+    { t: "10:10", e: "Finale compétition Python", w: "", hl: true },
     {
-      t: "11:45",
-      e: "Workshop 2 — Automatisation",
-      w: "Youness Zemzgui",
+      t: "10:30",
+      e: "Session de psychologie La santé mentale de l'étudiant universitaire : état des lieux et stratégies de renforcement",
+      w: "Izmaoun Mohamed",
+      hl: false,
+    },
+    { t: "11:20", e: "Pause café", w: "", hl: false },
+    {
+      t: "11:40",
+      e: "Conférence De l'idée à l'impact : décision stratégique, marketing et IA dans le business moderne",
+      w: "Othmane El Jadid",
       hl: false,
     },
     { t: "12:45", e: "Pause déjeuner", w: "", hl: false },
     {
-      t: "14:10",
-      e: "Workshop 3 — Coaching carrière",
-      w: "Anass ESSEMLALI",
+      t: "14:00",
+      e: "Workshop Automatisation : automatiser avec Python et l'IA du script au produit déployé",
+      w: "Youness Zemzgui",
       hl: false,
     },
     {
       t: "15:00",
-      e: "Table ronde",
-      w: "AUSIM · Othmane El Jadid (Entrepreneur)",
+      e: "Panel AUSIM Les enjeux de la cybersécurité au Maroc",
+      w: "Ait Bamouh Younes · Limy Abdessamad · Latifi Adam",
       hl: true,
     },
-    { t: "16:05", e: "Pause café", w: "", hl: false },
-    { t: "16:25", e: "Finale Hackathon", w: "", hl: true },
-    { t: "18:00", e: "Pause musicale", w: "", hl: false },
+    { t: "16:30", e: "Pause musicale", w: "", hl: false },
+    { t: "17:00", e: "Finale Hackathon", w: "", hl: true },
     { t: "18:30", e: "Clôture", w: "", hl: false },
   ],
 };
@@ -114,9 +126,9 @@ const COMPETITIONS = {
     badgeTitle: "Python",
     badgeSub: "Competition 2026",
     timeline: [
-      { date: "20 Avril · 09:30", ev: "Lancement du Hackathon", hl: true },
-      { date: "21 Avril · 10:10", ev: "Finale Competition Python", hl: true },
-      { date: "21 Avril · 16:25", ev: "Finale Hackathon", hl: true },
+      { date: "20 Avril · 09:00", ev: "Lancement du Hackathon", hl: true },
+      { date: "21 Avril · 10:10", ev: "Finale compétition Python", hl: true },
+      { date: "21 Avril · 17:00", ev: "Finale Hackathon", hl: true },
     ],
   },
   data: {
@@ -155,15 +167,14 @@ const SPEAKERS = [
     name: "Houda Mezouar",
     role: "Intervenante",
     topic:
-      "« Gouvernance des SI : pourquoi les meilleurs systèmes échouent sans elle »",
+      "« Gouvernance des systèmes d'information : pourquoi les meilleurs systèmes échouent sans elle »",
     img: "images/partenaires/partenaires/Houda mezouar.jpeg",
   },
   {
     init: "JD",
-    name: "Jérémy Dubourg",
+    name: "Jeremy Dubourg",
     role: "Intervenant",
-    topic:
-      "« Audit de sécurité des systèmes d'information et gestion des risques »",
+    topic: "« Sécurité des systèmes d'information »",
     img: "images/partenaires/partenaires/Jeremy dubourg.jpeg",
   },
   {
@@ -171,18 +182,34 @@ const SPEAKERS = [
     name: "Mohamed Oubal",
     role: "Intervenant",
     topic:
-      "« Du technique au stratégique, la gouvernance des SI comme impératif systémique et critique »",
+      "« Du technique au stratégique : la gouvernance des SI comme impératif systémique et critique »",
     img: "images/partenaires/partenaires/Oubal.png",
   },
+  {
+    init: "IM",
+    name: "Izmaoun Mohamed",
+    role: "Intervenant",
+    topic:
+      "« La santé mentale de l'étudiant universitaire : état des lieux et stratégies de renforcement »",
+    img: "images/partenaires/partenaires/Dr Mohamed IZMAOUN.jpeg",
+  },
+  // {
+  //   init: "OE",
+  //   name: "Othmane El Jadid",
+  //   role: "Intervenant",
+  //   topic:
+  //     "« De l'idée à l'impact : décision stratégique, marketing et IA dans le business moderne »",
+  //   img: "images/partenaires/partenaires/Othman El Jadid.jpeg",
+  // },
 ];
 
 const WORKSHOPS = [
   {
     pill: "live",
     label: "Présentiel",
-    date: "20 Avril 2026 · 15:05",
-    title: "Intelligence artificielle et Smart Cities",
-    who: "Hamza ELOUIAAZZANI",
+    date: "20 Avril 2026 · 14:15",
+    title: "Intelligence artificielle et smart cities",
+    who: "Hamza Elduiazzani",
     img: "images/partenaires/partenaires/Hamza ELOUIAAZANI.png",
     desc: "Optimiser la mobilité urbaine grâce à l'IA et aux villes intelligentes.",
   },
@@ -190,29 +217,29 @@ const WORKSHOPS = [
     pill: "live",
     label: "Présentiel",
     date: "21 Avril 2026 · 09:00",
-    title: "ERP",
-    who: "Oumaima MNIJEL",
+    title: "ERP au coeur de la transformation digitale",
+    who: "Oumaima Mniel",
     img: "images/partenaires/partenaires/Oumaima mnijel.png",
-    desc: "Optimisation des processus via les systèmes ERP.",
+    desc: "ERP au coeur de la transformation digitale des entreprises marocaines.",
   },
   {
     pill: "live",
     label: "Présentiel",
-    date: "21 Avril 2026 · 11:45",
-    title: "Automatisation",
+    date: "21 Avril 2026 · 14:00",
+    title: "Automatisation avec Python et l'IA",
     who: "Youness Zemzgui",
     img: "images/partenaires/partenaires/Youness zemzgui.jpeg",
-    desc: "Automatiser les tâches et flux SI pour gagner en efficacité.",
+    desc: "Du script au produit déployé : automatiser pour gagner en efficacité.",
   },
-  {
-    pill: "live",
-    label: "Présentiel",
-    date: "21 Avril 2026 · 14:10",
-    title: "Coaching carrière",
-    who: "Anass ESSEMLALI",
-    img: "images/partenaires/partenaires/essemlali.png",
-    desc: "Conseils pratiques pour réussir sa trajectoire professionnelle.",
-  },
+  // {
+  //   pill: "live",
+  //   label: "Présentiel",
+  //   date: "21 Avril 2026 · 14:10",
+  //   title: "Coaching carrière",
+  //   who: "Anass ESSEMLALI",
+  //   img: "images/partenaires/partenaires/essemlali.png",
+  //   desc: "Conseils pratiques pour réussir sa trajectoire professionnelle.",
+  // },
 ];
 
 const ROUNDTABLE = [
@@ -221,7 +248,7 @@ const ROUNDTABLE = [
     title: "Intervenants",
     people: [
       {
-        name: "Aziz Bouazzaoui",
+        name: "Aziz Bouazzaqui",
         role: "Directeur des SI & Transformation Digitale",
         img: "images/partenaires/partenaires/bouazzouzi.png",
       },
@@ -231,19 +258,15 @@ const ROUNDTABLE = [
         img: "images/partenaires/partenaires/Khadija habyb ellah.png",
       },
       {
-        name: "Moudrika Abdelkrim",
+        name: "Mouorika Abdelkrim",
         role: "Chef de projet senior · +15 ans d'expérience",
         img: "images/partenaires/partenaires/Moudrika abdlekrim.png",
       },
       {
-        name: "Nezha El Anmanari",
-        role: "Senior IT Manager & Business Analyst",
-        img: "images/partenaires/partenaires/Nezha elanmanari.jpeg",
-      },
-      {
-        name: "Assya Benayada",
+        name: "Youssra Atti",
         role: "Modératrice de table ronde",
-        img: "images/partenaires/partenaires/Assya Benayada.png",
+        img: "images/opt/youssra.jpg",
+        mod: true,
       },
     ],
   },
@@ -251,11 +274,6 @@ const ROUNDTABLE = [
     tag: "Sharing Experience · 20 Avril",
     title: "Speakers",
     people: [
-      {
-        name: "Lahcen Ait Youssef",
-        role: "SAP Consultant, ENSA Khouribga",
-        img: "images/partenaires/partenaires/ait youssef.png",
-      },
       {
         name: "Fatiha Attar",
         role: "IT Business Analyst, ENSA Agadir",
@@ -267,7 +285,7 @@ const ROUNDTABLE = [
         img: "images/partenaires/partenaires/Mourad mtouaa.jpeg",
       },
       {
-        name: "Othmane MANOUN",
+        name: "Othmane Manoum",
         role: "Fondateur de BOOSTOO, Partenaire Odoo Maroc",
         img: "images/partenaires/partenaires/Othmane MANOUN.png",
       },
@@ -275,7 +293,7 @@ const ROUNDTABLE = [
   },
   {
     tag: "Table ronde · 21 Avril",
-    title: "AUSIM & Othmane El Jadid",
+    title: "Panel AUSIM",
     people: [
       {
         name: "AUSIM",
@@ -283,9 +301,19 @@ const ROUNDTABLE = [
         img: "images/partenaires/partenaires/ausim.png",
       },
       {
-        name: "Othmane El Jadid",
-        role: "Entrepreneur",
-        img: "images/partenaires/partenaires/Outhmane Eljadid.png",
+        name: "Ait Bamouh Younes",
+        role: "Paneliste",
+        img: "images/partenaires/partenaires/Ait Bamouh Younes2.png",
+      },
+      {
+        name: "Limy Abdessamad",
+        role: "Paneliste",
+        img: "images/partenaires/partenaires/Limy Abdessamad.png",
+      },
+      {
+        name: "Latifi Adam",
+        role: "Paneliste",
+        img: "images/partenaires/partenaires/Latifi Adam.png",
       },
     ],
   },
@@ -899,19 +927,20 @@ function renderSpeakers() {
 }
 renderSpeakers();
 
+const getInitials = (name) =>
+  String(name)
+    .trim()
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
 // ================================================
 // ATELIERS
 // ================================================
 function renderAteliers() {
   const grid = document.getElementById("atelierGrid");
-  const getInitials = (name) =>
-    String(name)
-      .trim()
-      .split(/\s+/)
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase();
   grid.innerHTML = WORKSHOPS.map(
     (w) => `
     <div class="atelier-card">
@@ -951,12 +980,13 @@ function renderRoundtable() {
         ${panel.people
           .map((p) => {
             const isLogo = p.name === "AUSIM";
+            const initials = getInitials(p.name);
             return `
           <li class="rtp-person${p.mod ? " rtp-mod" : ""}">
             ${
               p.img
                 ? `<span class="rtp-ava${isLogo ? " is-logo" : ""}"><img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy" decoding="async" width="56" height="56"></span>`
-                : ""
+                : `<span class="rtp-ava">${initials}</span>`
             }
             <div class="rtp-text">
               <span class="rtp-name">${p.name}</span>

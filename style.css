@@ -1325,8 +1325,13 @@ body.hovering-text .cursor-text {
 }
 .spk-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
+}
+@media (min-width: 1200px) {
+  .spk-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 .spk-card {
   background: var(--surface);
@@ -1372,7 +1377,7 @@ body.hovering-text .cursor-text {
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--blue);
-  margin-bottom: 1.25rem;
+  margin: 0 auto 1.25rem;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
   transition: box-shadow 0.3s;
   overflow: hidden;
@@ -1656,6 +1661,13 @@ body.hovering-text .cursor-text {
   overflow: hidden;
   border: 1px solid var(--border2);
   background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--blue);
   flex-shrink: 0;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
 }
@@ -3189,7 +3201,7 @@ body.site-ready .hero-float-2 {
     gap: 3.5rem;
   }
   .spk-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .rt-panels {
     grid-template-columns: repeat(2, 1fr);
@@ -3316,7 +3328,7 @@ body.site-ready .hero-float-2 {
     gap: 1rem;
   }
   .spk-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   /* Ateliers */
@@ -3749,10 +3761,27 @@ body.site-ready .hero-float-2 {
   flex-direction: column;
 }
 
+/* Speakers + Ateliers: stacked header above grid */
+.speakers .section-split,
+.ateliers .section-split {
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+.speakers .section-split .ss-meta,
+.ateliers .section-split .ss-meta {
+  position: relative;
+  top: auto;
+  order: 0;
+}
+.speakers .section-split .ss-content,
+.ateliers .section-split .ss-content {
+  order: 0;
+}
+
 /* Content-column grid overrides */
 .ss-content .atelier-grid {
   margin-top: 0;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .ss-content .rt-panels {
   margin-top: 0;
@@ -3762,7 +3791,12 @@ body.site-ready .hero-float-2 {
   margin: 0 0 3rem;
 }
 .ss-content .spk-grid {
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 1200px) {
+  .ss-content .spk-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /* Collapse to single column on tablets/phones */
@@ -3784,6 +3818,9 @@ body.site-ready .hero-float-2 {
   }
   .ss-content .atelier-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .ss-content .spk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .ss-content .rt-panels {
     grid-template-columns: 1fr;
